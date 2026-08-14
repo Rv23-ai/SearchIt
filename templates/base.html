@@ -43,16 +43,30 @@
                 <!-- Navigation Links -->
                 <div class="hidden md:flex items-center space-x-6">
                     <a href="{{ url_for('index') }}" class="text-sm font-medium text-slate-300 hover:text-white transition">Home</a>
-                    <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition">Campus Feed</a>
+                    <a href="{{ url_for('dashboard.feed') }}" class="text-sm font-medium text-slate-300 hover:text-white transition">Campus Feed</a>
                     <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition">Report Item</a>
                     <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition">Profile</a>
                 </div>
 
                 <!-- Action Button / Auth -->
-                <div class="flex items-center space-x-4">
-                    <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 transition shadow-sm">
-                        Login / Register
-                    </a>
+                <div class="flex items-center space-x-3">
+                    {% if current_user %}
+                        <div class="flex items-center space-x-3">
+                            <span class="text-xs text-indigo-300 font-medium bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700">
+                                {{ current_user.college_email }}
+                            </span>
+                            <a href="{{ url_for('auth.logout') }}" class="inline-flex items-center px-3 py-1.5 border border-slate-700 text-xs font-medium rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition">
+                                Logout
+                            </a>
+                        </div>
+                    {% else %}
+                        <a href="{{ url_for('auth.login') }}" class="text-sm font-medium text-slate-300 hover:text-white transition px-3 py-2">
+                            Sign In
+                        </a>
+                        <a href="{{ url_for('auth.register') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 transition shadow-sm">
+                            Register
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
