@@ -1,2 +1,2 @@
 # SearchIt
-Making alost and found item web application for college campus
+Making a lost and found item web application for college campus
