@@ -44,6 +44,9 @@
 - `routes/auth.py`: Authentication Blueprint handling login, registration, logout.
 - `models.py`: ORM database models (`User`, `Item`, `ChatMessage`).
 - `templates/base.html`: Dynamic master template layout with Campus Feed navigation link.
+- `run.bat`: One-click Windows batch runner script (activates `.venv` & launches server).
+- `run.py`: Standalone Python entrypoint script that automatically opens `http://127.0.0.1:5000` in browser.
+- `README.md`: Updated with local execution guide.
 - `tests/test_dashboard.py`: Dashboard unit tests.
 - `tests/test_auth.py`: Auth unit tests.
 
