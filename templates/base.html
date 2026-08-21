@@ -55,9 +55,12 @@
                             <span class="text-xs text-indigo-300 font-medium bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700">
                                 {{ current_user.college_email }}
                             </span>
-                            <a href="{{ url_for('auth.logout') }}" class="inline-flex items-center px-3 py-1.5 border border-slate-700 text-xs font-medium rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition">
-                                Logout
-                            </a>
+                            <form action="{{ url_for('auth.logout') }}" method="POST" class="inline">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="inline-flex items-center px-3 py-1.5 border border-slate-700 text-xs font-medium rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition">
+                                    Logout
+                                </button>
+                            </form>
                         </div>
                     {% else %}
                         <a href="{{ url_for('auth.login') }}" class="text-sm font-medium text-slate-300 hover:text-white transition px-3 py-2">
