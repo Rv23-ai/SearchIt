@@ -35,6 +35,18 @@
   - Registered `dashboard_bp` in `app.py` and updated navbar link in `templates/base.html`.
   - Created `tests/test_dashboard.py` unit test suite (`3/3 tests passed`). All 7 suite tests passing cleanly.
 
+- **Security Audit & Hardening Phase**
+  - Implemented Open Redirect defense (`is_safe_url()`) on login routes.
+  - Enforced strict `@college.edu` domain verification (blocking arbitrary `.edu` spoofing).
+  - Implemented session-based CSRF protection middleware and added CSRF tokens to all templates.
+  - Added session fixation defense via session regeneration upon login/register.
+  - Hardened `SECRET_KEY` generation and set `HttpOnly` / `SameSite=Lax` session cookie flags.
+  - Injected HTTP security headers (`X-Frame-Options: DENY`, `nosniff`, `Content-Security-Policy`).
+  - Added login rate limiting (5 attempts / 5 mins per IP threshold, HTTP 429).
+  - Converted logout action to POST method with CSRF protection.
+  - Escaped SQL LIKE wildcards in search query.
+  - Expanded automated test suite to 12 tests (`12/12 passed`).
+
 ---
 
 ## 3. Active File Context
