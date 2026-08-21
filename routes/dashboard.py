@@ -1,3 +1,4 @@
+import secrets
 from flask import Blueprint, render_template, request
 from database import db
 from models import Item, User
@@ -10,14 +11,15 @@ CATEGORIES = ['Phone', 'Keys', 'Earbuds', 'ID Card', 'Bag', 'Accessories', 'Docu
 def seed_sample_items_if_empty():
     """Seed sample campus lost & found items if database is empty for rich preview."""
     if Item.query.count() == 0:
-        # Check or create seed user
+        # Check or create seed user with strong random secret password
         seed_user = User.query.filter_by(college_email='campus.admin@college.edu').first()
         if not seed_user:
+            random_pass = secrets.token_urlsafe(16)
             seed_user = User(
                 college_email='campus.admin@college.edu',
                 student_id='ADM2026-001',
                 department='Campus Safety & Admin',
-                password_hash=generate_password_hash('adminpass123'),
+                password_hash=generate_password_hash(random_pass),
                 karma_score=300
             )
             db.session.add(seed_user)
@@ -78,7 +80,7 @@ def feed():
 
     item_type = request.args.get('type', 'ALL').upper()
     category = request.args.get('category', '').strip()
-    search_q = request.args.get('q', '').strip()
+    search_q = request.args.get('q', '').strip()[:100]  # Cap query to 100 chars to prevent DoS
 
     query = Item.query
 
@@ -89,7 +91,9 @@ def feed():
         query = query.filter(Item.category == category)
 
     if search_q:
-        search_term = f"%{search_q}%"
+        # Escape SQL LIKE wildcard special characters to prevent wildcard inflation
+        escaped_q = search_q.replace('\\', '\\\\').replace('%', '\\%').replace('_', '\\_')
+        search_term = f"%{escaped_q}%"
         query = query.filter(
             (Item.title.ilike(search_term)) |
             (Item.building.ilike(search_term)) |
