@@ -3,37 +3,51 @@
 {% block title %}SearchIt - Reconnect With Your Campus Belongings{% endblock %}
 
 {% block content %}
-<div class="space-y-12">
+<div class="space-y-16 py-4">
+
     <!-- Hero Section -->
-    <div class="relative overflow-hidden rounded-3xl bg-slate-900 text-white p-8 md:p-12 lg:p-16 shadow-xl border border-slate-800">
+    <div class="relative overflow-hidden rounded-3xl glass-panel-glow p-8 sm:p-12 lg:p-16 border border-white/10 shadow-2xl">
+        <!-- Floating Aurora orb behind hero -->
+        <div class="absolute -right-20 -top-20 w-96 h-96 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none animate-pulse-subtle"></div>
+        <div class="absolute -left-20 -bottom-20 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none animate-pulse-subtle" style="animation-delay: 1.5s;"></div>
+
         <div class="relative z-10 max-w-3xl space-y-6">
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-                Official Campus Lost & Found System
-            </span>
-            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
+            <!-- Pulsing Badge -->
+            <div class="inline-flex items-center space-x-2.5 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold shadow-glow-emerald">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>✨ Official Campus Lost &amp; Found System</span>
+            </div>
+
+            <!-- Headline with Aurora Gradient -->
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
                 Lost Something on Campus? <br/>
-                <span class="text-indigo-400">We'll Help You Find It.</span>
+                <span class="text-gradient-aurora">We'll Help You Find It.</span>
             </h1>
-            <p class="text-slate-300 text-base md:text-lg leading-relaxed">
-                SearchIt connects students and faculty to rapidly report, locate, and claim lost items across campus buildings with secret detail verification and privacy protections.
+
+            <!-- Subtitle -->
+            <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl font-normal">
+                SearchIt seamlessly connects students and faculty to rapidly report, pinpoint, and safely claim lost belongings across campus buildings with anti-fraud secret verification.
             </p>
 
             <!-- Call-to-Action Buttons -->
-            <div class="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <a href="#" class="inline-flex items-center justify-center px-6 py-3.5 border border-transparent text-base font-semibold rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 transition shadow-md hover:shadow-lg">
+            <div class="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center space-y-3.5 sm:space-y-0 sm:space-x-4">
+                <a href="{{ url_for('dashboard.feed') }}" 
+                    class="inline-flex items-center justify-center px-7 py-3.5 text-sm font-bold rounded-xl text-slate-950 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 transition shadow-glow-emerald hover:scale-[1.03] active:scale-[0.98]">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                     </svg>
                     Browse Campus Feed
                 </a>
-                <a href="#" class="inline-flex items-center justify-center px-6 py-3.5 border border-amber-500/30 text-base font-semibold rounded-xl text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 transition">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <a href="{{ url_for('dashboard.feed', type='LOST') }}" 
+                    class="inline-flex items-center justify-center px-6 py-3.5 border border-amber-500/40 text-sm font-semibold rounded-xl text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 hover:border-amber-500/60 transition shadow-glow-amber hover:scale-[1.02] active:scale-[0.98]">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
                     </svg>
                     Report Lost Item
                 </a>
-                <a href="#" class="inline-flex items-center justify-center px-6 py-3.5 border border-emerald-500/30 text-base font-semibold rounded-xl text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 transition">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <a href="{{ url_for('dashboard.feed', type='FOUND') }}" 
+                    class="inline-flex items-center justify-center px-6 py-3.5 border border-emerald-500/40 text-sm font-semibold rounded-xl text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 hover:border-emerald-500/60 transition shadow-glow-emerald hover:scale-[1.02] active:scale-[0.98]">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
                     Report Found Item
@@ -42,44 +56,75 @@
         </div>
     </div>
 
-    <!-- Feature Highlights -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-3">
-            <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
-            </div>
-            <h3 class="text-lg font-bold text-slate-900">Indoor Location Hierarchy</h3>
-            <p class="text-sm text-slate-600 leading-relaxed">
-                Pinpoint lost or found items by Building, Floor level, and specific spot details to find items faster.
-            </p>
+    <!-- Live Campus Trust Metrics Strip -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="glass-panel p-5 rounded-2xl text-center border border-white/5 space-y-1">
+            <div class="text-2xl lg:text-3xl font-extrabold text-gradient-aurora">100%</div>
+            <div class="text-xs text-slate-400 font-medium">Verified @college.edu Users</div>
+        </div>
+        <div class="glass-panel p-5 rounded-2xl text-center border border-white/5 space-y-1">
+            <div class="text-2xl lg:text-3xl font-extrabold text-emerald-400">Anti-Fraud</div>
+            <div class="text-xs text-slate-400 font-medium">Secret Verification Locks</div>
+        </div>
+        <div class="glass-panel p-5 rounded-2xl text-center border border-white/5 space-y-1">
+            <div class="text-2xl lg:text-3xl font-extrabold text-cyan-400">Building-Level</div>
+            <div class="text-xs text-slate-400 font-medium">Indoor Spot Location Pins</div>
+        </div>
+        <div class="glass-panel p-5 rounded-2xl text-center border border-white/5 space-y-1">
+            <div class="text-2xl lg:text-3xl font-extrabold text-indigo-400">Karma Points</div>
+            <div class="text-xs text-slate-400 font-medium">Goodwill Community Rewards</div>
+        </div>
+    </div>
+
+    <!-- Feature Highlights (3-Column Aurora Glass Cards) -->
+    <div class="space-y-6">
+        <div class="text-center space-y-2">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Built Specifically for Campus Life</h2>
+            <p class="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">Engineered to eliminate false claims and return your belongings in record time.</p>
         </div>
 
-        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-3">
-            <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-                </svg>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Feature Card 1 -->
+            <div class="glass-card p-7 rounded-2xl space-y-4 group">
+                <div class="w-12 h-12 rounded-xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-400 flex items-center justify-center shadow-glow-cyan group-hover:scale-110 transition duration-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-white group-hover:text-cyan-300 transition">Indoor Location Hierarchy</h3>
+                <p class="text-sm text-slate-400 leading-relaxed">
+                    Pinpoint lost or found items by Building name, Floor level, and exact landmarks (e.g. Lab benches, cafeteria tables, desk numbers).
+                </p>
             </div>
-            <h3 class="text-lg font-bold text-slate-900">Anti-Fraud Secret Claim</h3>
-            <p class="text-sm text-slate-600 leading-relaxed">
-                Found items require claimants to answer a secret verification question before claiming to prevent false claims.
-            </p>
-        </div>
 
-        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-3">
-            <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
+            <!-- Feature Card 2 -->
+            <div class="glass-card p-7 rounded-2xl space-y-4 group">
+                <div class="w-12 h-12 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 flex items-center justify-center shadow-glow-amber group-hover:scale-110 transition duration-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-white group-hover:text-amber-300 transition">Anti-Fraud Secret Claim</h3>
+                <p class="text-sm text-slate-400 leading-relaxed">
+                    Found items require claimants to answer a secret verification question created by the finder before releasing contact details.
+                </p>
             </div>
-            <h3 class="text-lg font-bold text-slate-900">Goodwill & Karma Points</h3>
-            <p class="text-sm text-slate-600 leading-relaxed">
-                Earn Goodwill Points for returning items to their rightful owners and help build a trusted campus community.
-            </p>
+
+            <!-- Feature Card 3 -->
+            <div class="glass-card p-7 rounded-2xl space-y-4 group">
+                <div class="w-12 h-12 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center shadow-glow-emerald group-hover:scale-110 transition duration-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-white group-hover:text-emerald-300 transition">Goodwill &amp; Karma Points</h3>
+                <p class="text-sm text-slate-400 leading-relaxed">
+                    Earn verified Goodwill Karma points every time you safely return an item to its owner, establishing trusted campus reputation.
+                </p>
+            </div>
         </div>
     </div>
 </div>
 {% endblock %}
+

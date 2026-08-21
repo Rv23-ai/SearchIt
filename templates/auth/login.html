@@ -1,52 +1,95 @@
 {% extends 'base.html' %}
 
-{% block title %}Login - SearchIt{% endblock %}
+{% block title %}Sign In - SearchIt{% endblock %}
 
 {% block content %}
-<div class="max-w-md mx-auto my-12">
-    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8">
+<div class="max-w-md mx-auto my-8 sm:my-16 relative">
+    <!-- Floating Aurora ambient glow orb behind card -->
+    <div class="absolute -top-12 -left-12 w-64 h-64 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none animate-pulse-subtle"></div>
+    <div class="absolute -bottom-12 -right-12 w-64 h-64 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none animate-pulse-subtle" style="animation-delay: 1.5s;"></div>
+
+    <div class="relative z-10 glass-panel-glow rounded-3xl p-8 sm:p-10 border border-white/10 shadow-2xl space-y-8">
+        
         <!-- Header -->
-        <div class="text-center mb-8">
-            <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 mb-4">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+        <div class="text-center space-y-3">
+            <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 border border-emerald-500/30 text-emerald-400 shadow-glow-emerald">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                 </svg>
             </div>
-            <h1 class="text-2xl font-bold tracking-tight text-slate-900">Sign in to SearchIt</h1>
-            <p class="text-xs text-slate-500 mt-1">Access campus lost & found reporting with your institutional account</p>
+            <div class="space-y-1">
+                <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">Welcome Back</h1>
+                <p class="text-xs sm:text-sm text-slate-400">Sign in with your campus institutional credentials</p>
+            </div>
         </div>
 
         <!-- Form -->
         <form action="{{ url_for('auth.login') }}{% if request.args.get('next') %}?next={{ request.args.get('next') }}{% endif %}" method="POST" class="space-y-5">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
             <!-- College Email -->
-            <div>
-                <label for="college_email" class="block text-sm font-semibold text-slate-700 mb-1.5">College Email Address</label>
+            <div class="space-y-1.5">
+                <label for="college_email" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">Campus Email</label>
                 <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                        <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/>
+                        </svg>
+                    </div>
                     <input type="email" id="college_email" name="college_email" value="{{ college_email or '' }}" required placeholder="student@college.edu"
-                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
+                        class="w-full pl-10 pr-4 py-3 rounded-xl bg-black/40 border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400 transition">
                 </div>
-                <p class="text-xs text-slate-500 mt-1">Must end with @college.edu</p>
+                <p class="text-[11px] text-slate-500">Restricted to official @college.edu domain accounts</p>
             </div>
 
             <!-- Password -->
-            <div>
-                <label for="password" class="block text-sm font-semibold text-slate-700 mb-1.5">Password</label>
-                <input type="password" id="password" name="password" required placeholder="••••••••"
-                    class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
+            <div class="space-y-1.5">
+                <div class="flex items-center justify-between">
+                    <label for="password" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">Password</label>
+                </div>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                        <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                    </div>
+                    <input type="password" id="password" name="password" required placeholder="••••••••"
+                        class="w-full pl-10 pr-11 py-3 rounded-xl bg-black/40 border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400 transition">
+                    <button type="button" id="toggle-password" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-white transition focus:outline-none">
+                        <svg id="eye-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" class="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm rounded-xl shadow-sm hover:shadow transition duration-150">
-                Sign In
+            <button type="submit" class="w-full py-3.5 px-4 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 text-slate-950 font-bold text-sm rounded-xl transition duration-150 shadow-glow-emerald hover:scale-[1.02] active:scale-[0.98] mt-2">
+                Sign In to Dashboard
             </button>
         </form>
 
-        <!-- Footer link -->
-        <div class="mt-6 text-center text-xs text-slate-600 border-t border-slate-100 pt-5">
-            Don't have an institutional account yet?
-            <a href="{{ url_for('auth.register') }}" class="font-semibold text-indigo-600 hover:text-indigo-500 transition ml-1">Register here</a>
+        <!-- Divider & Footer link -->
+        <div class="relative text-center border-t border-white/10 pt-6">
+            <p class="text-xs text-slate-400">
+                Don't have an institutional account yet?
+                <a href="{{ url_for('auth.register') }}" class="font-bold text-emerald-400 hover:text-cyan-300 transition ml-1">Register here</a>
+            </p>
         </div>
     </div>
 </div>
+
+<!-- Password Visibility Script -->
+<script>
+    const toggleBtn = document.getElementById('toggle-password');
+    const pwdInput = document.getElementById('password');
+    if (toggleBtn && pwdInput) {
+        toggleBtn.addEventListener('click', () => {
+            const isPassword = pwdInput.type === 'password';
+            pwdInput.type = isPassword ? 'text' : 'password';
+        });
+    }
+</script>
 {% endblock %}
+
